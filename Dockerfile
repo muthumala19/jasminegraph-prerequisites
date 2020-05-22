@@ -72,6 +72,6 @@ RUN apt-get update && \
     apt-get install -y libtool && \
     git clone https://github.com/DamithaSenevirathne/jasminegraph-prerequisites.git
 ENV HOME="/home/ubuntu"
-WORKDIR /home/ubuntu/software/jasminegraph-prerequisites
+WORKDIR /home/ubuntu/software/jasminegraph-prerequisites/python_libs
 RUN pip install -r requirements
 CMD ["bash"]
