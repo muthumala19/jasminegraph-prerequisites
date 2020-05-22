@@ -73,5 +73,7 @@ RUN apt-get update && \
     git clone https://github.com/DamithaSenevirathne/jasminegraph-prerequisites.git
 ENV HOME="/home/ubuntu"
 WORKDIR /home/ubuntu/software/jasminegraph-prerequisites/python_libs
-RUN pip install -r requirements
+RUN apt-get install -y python-pip && \
+    apt-get update && \
+    pip install -r requirements
 CMD ["bash"]
