@@ -58,8 +58,8 @@ WORKDIR /home/ubuntu/software/jsoncpp/build/debug
 RUN cmake -DCMAKE_BUILD_TYPE=debug -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF -DARCHIVE_INSTALL_DIR=. -G "Unix Makefiles" ../.. && \
     make
 WORKDIR /home/ubuntu/software
-RUN wget http://zlib.net/pigz/pigz-2.4.tar.gz && \
-    tar -xvf pigz-2.4.tar.gz
+RUN wget http://zlib.net/pigz/pigz-2.4.tar.gz
+RUN tar -xvf pigz-2.4.tar.gz
 WORKDIR /home/ubuntu/software/pigz-2.4
 RUN make
 ENV PATH="/home/ubuntu/software/pigz-2.4/pigz:${PATH}"
