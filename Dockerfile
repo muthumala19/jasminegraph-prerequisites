@@ -76,4 +76,6 @@ WORKDIR /home/ubuntu/software/jasminegraph-prerequisites/python_libs
 RUN apt-get install -y python-pip && \
     apt-get update && \
     pip install -r requirements
+RUN mkdir /home/ubuntu/software/metis/metis-5.1.0/bin && \
+    cp -i /home/ubuntu/software/metis/metis-5.1.0/build/Linux-x86_64/programs/gpmetis /home/ubuntu/software/metis/metis-5.1.0/bin
 CMD ["bash"]
