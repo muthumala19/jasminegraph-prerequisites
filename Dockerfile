@@ -64,6 +64,12 @@ WORKDIR /home/ubuntu/software/pigz-2.4
 RUN make
 ENV PATH="/home/ubuntu/software/pigz-2.4/pigz:${PATH}"
 WORKDIR /home/ubuntu/software
+RUN wget https://nchc.dl.sourceforge.net/project/nmon/nmon16m_helpsystems.tar.gz
+RUN mkdir nmon
+RUN tar -xf nmon16m_helpsystems.tar.gz -C nmon
+WORKDIR /home/ubuntu/software/nmon
+RUN cp nmon_x86_64_ubuntu18 /usr/local/bin
+WORKDIR /home/ubuntu/software
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
     apt-get update && \
