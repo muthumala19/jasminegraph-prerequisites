@@ -10,6 +10,7 @@ RUN apt-get update && \
     apt-get -y install docker-ce && \
     apt-get update && apt-get install -y git && \
     apt-get install -y cmake && \
+    apt-get install -y zip && \
     git clone https://github.com/google/flatbuffers.git
 WORKDIR /home/ubuntu/software/flatbuffers
 RUN git checkout tags/v1.10.0 && \
@@ -58,17 +59,22 @@ WORKDIR /home/ubuntu/software/jsoncpp/build/debug
 RUN cmake -DCMAKE_BUILD_TYPE=debug -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF -DARCHIVE_INSTALL_DIR=. -G "Unix Makefiles" ../.. && \
     make
 WORKDIR /home/ubuntu/software
-RUN wget http://zlib.net/pigz/pigz-2.4.tar.gz
-RUN tar -xvf pigz-2.4.tar.gz
-WORKDIR /home/ubuntu/software/pigz-2.4
+RUN wget http://zlib.net/pigz/pigz-2.6.tar.gz
+RUN tar -xvf pigz-2.6.tar.gz
+WORKDIR /home/ubuntu/software/pigz-2.6
 RUN make
-ENV PATH="/home/ubuntu/software/pigz-2.4/pigz:${PATH}"
+ENV PATH="/home/ubuntu/software/pigz-2.6/pigz:${PATH}"
 WORKDIR /home/ubuntu/software
 RUN wget https://nchc.dl.sourceforge.net/project/nmon/nmon16m_helpsystems.tar.gz
 RUN mkdir nmon
 RUN tar -xf nmon16m_helpsystems.tar.gz -C nmon
 WORKDIR /home/ubuntu/software/nmon
 RUN cp nmon_x86_64_ubuntu18 /usr/local/bin
+WORKDIR /home/ubuntu/software
+RUN mkdir nlohmann_json
+WORKDIR /home/ubuntu/software/nlohmann_json
+RUN wget https://github.com/nlohmann/json/releases/download/v3.9.1/include.zip
+RUN unzip include.zip
 WORKDIR /home/ubuntu/software
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
