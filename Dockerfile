@@ -80,7 +80,7 @@ RUN apt-get update && \
     apt-get install -y software-properties-common && \
     apt-get update && \
     add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get install -y python3.5-dev && \
+    apt-get install -y python3.11-dev && \
     apt-get install -y libtool && \
     git clone https://github.com/DamithaSenevirathne/jasminegraph-prerequisites.git
 ENV HOME="/home/ubuntu"
