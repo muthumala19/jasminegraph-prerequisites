@@ -6,20 +6,17 @@ RUN apt-get install --no-install-recommends -y apt-transport-https
 RUN apt-get update
 RUN apt-get install --no-install-recommends -y curl gnupg2 ca-certificates software-properties-common nlohmann-json3-dev
 
-RUN apt-get install --no-install-recommends -y git cmake build-essential gcc-9 g++-9 sqlite3 libsqlite3-dev libssl-dev librdkafka-dev libboost-all-dev libtool libxerces-c-dev libflatbuffers-dev
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 20
-
-RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10
-RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 20
+RUN apt-get install --no-install-recommends -y git cmake build-essential sqlite3 libsqlite3-dev libssl-dev librdkafka-dev libboost-all-dev libtool libxerces-c-dev libflatbuffers-dev
 
 RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt-get install --no-install-recommends -y python3.11-dev
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 RUN apt-get install --no-install-recommends -y libjsoncpp-dev libspdlog-dev pigz
 RUN python3.11 get-pip.py
-RUN pip install tensorflow==2.5.3
+RUN pip install tensorflow==2.13.0
 RUN pip install -U scikit-learn
+RUN pip install joblib
+RUN pip install threadpoolctl
 
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
@@ -43,6 +40,3 @@ WORKDIR /home/ubuntu/software/cppkafka/build
 RUN cmake ..
 RUN make -j4
 RUN make install
-
-RUN pip install joblib
-RUN pip install threadpoolctl
