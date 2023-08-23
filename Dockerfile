@@ -32,6 +32,7 @@ RUN git clone --single-branch --depth 1 https://github.com/mfontanini/cppkafka.g
 RUN git clone --single-branch --depth 1 --branch v5.1.1-DistDGL-v0.5 https://github.com/KarypisLab/METIS.git
 WORKDIR /home/ubuntu/software/METIS
 RUN git submodule update --init
+RUN find . -type f -print0 | xargs -0 sed -i '/-march=native/d'
 RUN make config shared=1 cc=gcc prefix=/usr/local
 RUN make install
 
