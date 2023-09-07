@@ -19,7 +19,7 @@ jobs:
       
       - name: Get Timestamp
         id: timestamp
-        run: echo "current=$(date +'%Y%m%dT%H%M%S')" >> $GITHUB_OUTPUT
+        run: echo "current=$(date +'%Y%m%dT%H%M%S')" >> "${GITHUB_OUTPUT}"
 
       - name: Docker Push
         run: |
