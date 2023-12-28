@@ -30,14 +30,13 @@ RUN git clone --single-branch --depth 1 https://github.com/kubernetes-client/c
 RUN git clone https://libwebsockets.org/repo/libwebsockets --depth 1 --branch v4.2-stable
 RUN git clone https://github.com/yaml/libyaml --depth 1 --branch release/0.2.5
 
-
-RUN apt-get purge -y --autoremove git curl
-
 WORKDIR /home/ubuntu/software/METIS
 RUN git submodule update --init
 RUN find . -type f -print0 | xargs -0 sed -i '/-march=native/d'
 RUN make config shared=1 cc=gcc prefix=/usr/local
 RUN make install
+
+RUN apt-get purge -y --autoremove git
 
 RUN mkdir /home/ubuntu/software/cppkafka/build
 WORKDIR /home/ubuntu/software/cppkafka/build
@@ -65,4 +64,3 @@ RUN make
 RUN make install
 
 RUN rm -rf /home/ubuntu/software/*
-RUN export LD_LIBRARY_PATH=/usr/local/lib
