@@ -27,8 +27,8 @@ WORKDIR /home/ubuntu/software
 RUN git clone --single-branch --depth 1 --branch v5.1.1-DistDGL-v0.5 https://github.com/KarypisLab/METIS.git
 RUN git clone --single-branch --depth 1 https://github.com/mfontanini/cppkafka.git
 RUN git clone --single-branch --depth 1 https://github.com/kubernetes-client/c
-RUN git clone https://libwebsockets.org/repo/libwebsockets --depth 1 --branch v4.2-stable
-RUN git clone https://github.com/yaml/libyaml --depth 1 --branch release/0.2.5
+RUN git clone --single-branch --depth 1 --branch v4.2-stable https://libwebsockets.org/repo/libwebsockets
+RUN git clone --single-branch --depth 1 --branch release/0.2.5 https://github.com/yaml/libyaml
 
 WORKDIR /home/ubuntu/software/METIS
 RUN git submodule update --init
