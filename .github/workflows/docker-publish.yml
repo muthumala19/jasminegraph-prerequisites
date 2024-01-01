@@ -2,9 +2,9 @@ name: Docker Publish
 
 on:
   push:
-    branches: [master]
+    branches: [ master ]
   pull_request:
-    branches: [master]
+    branches: [ master ]
 
 env:
   IMAGE_NAME: jasminegraph-prerequisites
@@ -18,14 +18,14 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t $IMAGE_NAME:temp .
-          CONTAINER_ID=$(docker create $IMAGE_NAME:temp)
-          docker export "${CONTAINER_ID}" | docker import - $IMAGE_NAME:latest
+          docker build -t "${IMAGE_NAME}:temp" .
+          CONTAINER_ID=$(docker create "${IMAGE_NAME}:temp")
+          docker export "${CONTAINER_ID}" | docker import - "${IMAGE_NAME}:latest"
 
       - name: Docker Login
         if: github.event_name != 'pull_request'
         run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
-      
+
       - name: Get Timestamp
         if: github.event_name != 'pull_request'
         id: timestamp
@@ -34,7 +34,7 @@ jobs:
       - name: Docker Push
         if: github.event_name != 'pull_request'
         run: |
-          docker tag $IMAGE_NAME:latest ${{secrets.DOCKER_USER}}/$IMAGE_NAME:latest
-          docker tag $IMAGE_NAME:latest ${{secrets.DOCKER_USER}}/$IMAGE_NAME:${{ steps.timestamp.outputs.current }}
-          docker push ${{secrets.DOCKER_USER}}/$IMAGE_NAME:latest
-          docker push ${{secrets.DOCKER_USER}}/$IMAGE_NAME:${{ steps.timestamp.outputs.current }}
+          docker tag "${IMAGE_NAME}:latest" "${{secrets.DOCKER_USER}}/${IMAGE_NAME}:latest"
+          docker tag "${IMAGE_NAME}:latest" "${{secrets.DOCKER_USER}}/${IMAGE_NAME}:${{ steps.timestamp.outputs.current }}"
+          docker push "${{secrets.DOCKER_USER}}/${IMAGE_NAME}:latest"
+          docker push "${{secrets.DOCKER_USER}}/${IMAGE_NAME}:${{ steps.timestamp.outputs.current }}"
