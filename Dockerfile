@@ -29,6 +29,7 @@ RUN git clone --single-branch --depth 1 https://github.com/mfontanini/cppkafka.g
 RUN git clone --single-branch --depth 1 https://github.com/kubernetes-client/c
 RUN git clone --single-branch --depth 1 --branch v4.2-stable https://libwebsockets.org/repo/libwebsockets
 RUN git clone --single-branch --depth 1 --branch release/0.2.5 https://github.com/yaml/libyaml
+RUN git clone --single-branch --depth 1 https://github.com/antlr/antlr4.git
 
 WORKDIR /home/ubuntu/software/METIS
 RUN git submodule update --init
@@ -61,6 +62,13 @@ RUN mkdir /home/ubuntu/software/c/kubernetes/build
 WORKDIR /home/ubuntu/software/c/kubernetes/build
 RUN cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..
 RUN make
+RUN make install
+
+WORKDIR /home/ubuntu/software
+WORKDIR /home/ubuntu/software/antlr4/runtime/Cpp
+RUN mkdir /home/ubuntu/software/antlr4/runtime/Cpp/build
+WORKDIR /home/ubuntu/software/antlr4/runtime/Cpp/build
+RUN cmake ..
 RUN make install
 
 RUN rm -rf /home/ubuntu/software/*
